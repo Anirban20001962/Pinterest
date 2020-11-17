@@ -1,0 +1,39 @@
+.card {
+    background-size: cover;
+    object-fit: cover;
+    position: relative;
+    transition: all .2s;
+    margin-top: 10px;
+}
+.card img{
+    width: 100%;
+    border-radius: 9px;
+}
+.card:hover{
+    cursor: pointer;
+    background-color: rgb(red, green, blue)
+}
+.btn_red{
+    background-color:rgba(201, 37, 4,1);
+    color: white;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    display: none;
+}
+.btn_red:hover{
+    background-color:rgba(201, 37, 4,.8);
+    cursor: pointer;
+}
+.card:hover > *{
+    display: block;
+}
+.download {
+    display: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

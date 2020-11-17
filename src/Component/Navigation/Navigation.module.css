@@ -1,0 +1,111 @@
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 2rem;
+}
+.logo h1{
+    color: red;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.logo_dim{
+    width: 3.8rem;
+    height: 3.8rem;
+    padding-right: .5rem;
+}
+.tag {
+    display: flex;
+    font-size: 2rem;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+}
+.tag li {
+    list-style: none;
+    padding: 2rem;
+    
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+button {
+    outline: none;
+    border: none;
+    padding: 1rem;
+    border-radius: 3rem;
+}
+.btn_red {
+    background-color: rgba(176, 22, 11,1);
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white;
+}
+.btn_red:hover {
+    background-color: rgba(176, 22, 11,0.8);
+    cursor: pointer;
+}
+.btn_grey {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.btn_grey:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+@media only screen and (max-width: 769px) {
+    .tag li {
+        padding: 1.2rem;
+    }
+}
+@media only screen and (max-width: 652px) {
+    .navigation {
+        flex-direction: column;
+    }
+    .logo {
+        margin-top: 1rem;
+    }
+}
+@media only screen and (max-width: 529px) {
+    .tag li {
+        padding: .8rem;
+    }
+}
+@media only screen and (max-width: 452px) {
+    .tag {
+        flex-direction: column;
+        align-items: flex-start;
+        display: none;
+    }
+    .navigation {
+        align-items: flex-start;
+    }
+    .text {
+        margin-left: 1rem;
+    }
+    .bar_lines{
+        border-top: 2px solid black;
+        width: 4.5rem;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+    .bar_lines::before,
+    .bar_lines::after{
+        border-top: 2px solid black;
+        width: 100%;
+        content: "";
+        display: block;
+        margin: 1rem 0;
+    }
+    .bar_lines:hover{
+        cursor: pointer;
+    }
+}
