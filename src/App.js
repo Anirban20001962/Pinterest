@@ -5,6 +5,7 @@ import Footer from './Component/Footer/Footer'
 import {connect} from 'react-redux';
 import Auth from './Container/Auth/Auth'
 import { authAction,logout } from './Redux/reducers/authReducer'
+import {Route, Switch} from 'react-router-dom';
 const App = (props) => {
   const {authenticate,deauthenticate} = props;
   useEffect(() => {
@@ -21,15 +22,19 @@ const App = (props) => {
     }
   },[authenticate,deauthenticate])
   return (
-    <React.Fragment >
+    <Switch>
+      <React.Fragment >
         <Navigation/>
-        <Home />
-        <Footer />
-        {!props.auth? <Auth /> : null }
-    </React.Fragment>
+          <Route exact path="/">
+            <Home />
+            {!props.auth? <Footer/> : null }
+          </Route>
+          {!props.auth? <Auth /> : null }
+        </React.Fragment>
+    </Switch>
   );
-}
-const mapStateToProps = (state) => ({auth: state.isLogin})
+} 
+const mapStateToProps = (state) => ({auth: state.auth.isLogin})
 const mapDispatchToProps = dispatch => {
   return {
     authenticate: () => dispatch(authAction()),

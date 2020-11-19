@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import {postsAsk} from '../../Redux/reducers/postsReducer'
 import Styles from './Home.module.css'
 import Card from '../Card/Card';
 import image1 from '../../images/download.jpeg'
@@ -12,8 +13,23 @@ import image8 from '../../images/images (4).jpeg'
 import image9 from '../../images/images (5).jpeg'
 import image10 from '../../images/images (6).jpeg'
 import image11 from '../../images/images.jpeg'
+import { connect } from 'react-redux';
 
-const home = () => {
+const Home = (props) => {
+    let images = [];
+    let defaultImages = [image1,image2,image3,image4,image5,image6,image6,image7,image8,image9,image10,image11]
+    const {isLogin,postsAskNow} = props
+    useEffect(() => {
+        if(isLogin) {
+            postsAskNow();
+        }
+    },[isLogin,postsAskNow])
+    if(isLogin) {
+        images = [...props.posts]
+        //console.log(props.posts.posts[0])
+    }
+    
+    const renderElement = images.map(el => <Card imagePath={el.imageUrl} /> )
     return (
         <React.Fragment>
             <div className={Styles.Heading}>
@@ -23,21 +39,22 @@ const home = () => {
                 Break time idea
             </div>
             <div className={Styles.grid_container}>
-                <Card imagePath={image1} />
-                <Card imagePath={image2} />
-                <Card imagePath={image3} />
-                <Card imagePath={image4} />
-                <Card imagePath={image5} />
-                <Card imagePath={image6} />
-                <Card imagePath={image7} />
-                <Card imagePath={image8} />
-                <Card imagePath={image9} />
-                <Card imagePath={image10} />
-                <Card imagePath={image11} />
+                {renderElement}
             </div>
         </React.Fragment>
 
     )
 }
+const mapStateToProps = store => {
+    return {
+        isLogin: store.auth.isLogin,
+        posts: store.posts.posts
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        postsAskNow: () => dispatch(postsAsk()),
+    }
+} 
 
-export default home
+export default connect(mapStateToProps,mapDispatchToProps)(Home)

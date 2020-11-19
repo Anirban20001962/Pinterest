@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import { Provider} from 'react-redux';
-import {createStore,applyMiddleware} from 'redux'
+import {createStore,applyMiddleware,combineReducers} from 'redux'
 import thunk from 'redux-thunk'
-import reducer from './Redux/actions/auth';
+import authReducer from './Redux/actions/auth';
+import postsReducer from './Redux/actions/posts';
 const logger=({ getState }) => {
   return next => action => {
      console.log('action', action);
@@ -14,12 +16,15 @@ const logger=({ getState }) => {
      return returnVal;
   }
 }
-const store = createStore(reducer,applyMiddleware(thunk,logger));
+const rootReducer = combineReducers({auth: authReducer,posts: postsReducer})
+const store = createStore(rootReducer,applyMiddleware(thunk,logger));
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+      </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

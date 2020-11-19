@@ -2,13 +2,23 @@ import React, {useState} from 'react'
 import Styles from './Auth.module.css'
 import { signup,login } from '../../Redux/reducers/authReducer'
 import { connect } from 'react-redux'
+import Spinner from '../../Component/Spinner/Spinner'
 import {ReactComponent as Logo} from '../../Component/Navigation/pinterest.svg'
 const Auth = (props)=> {
+    let objectStyle = {
+        "display": 'flex',
+        "alignItems": 'center',
+        "justifyContent": 'center'
+    }
     let [name,changeName] = useState("");
     let [password,changePassword] = useState("");
     let [email,changeEmail] = useState("");
-    return (
-        <div className={Styles.Auth_container}>
+    let element = null;
+    if(props.spinner) {
+        element = <Spinner />
+    }
+    else {
+        element = (<React.Fragment>
             <div className={Styles.Heading}>
                 <h1>Sign up to get your ideas</h1>
             </div>
@@ -47,15 +57,19 @@ const Auth = (props)=> {
                     </div>
                 </div>
             </div>
+        </React.Fragment>)
+    }
+    return (
+        <div className={Styles.Auth_container} style={props.spinner?objectStyle:null}>
+            {element}
         </div>
     )
 }
-
+const mapStateToProps = (store) => ({spinner: store.auth.spinner})
 const mapDispatchToProps = dispatch => {
     return {
         Signup: (userData) => dispatch(signup(userData)),
         Login: (userData) => dispatch(login(userData))
     }
-}
- 
-export default connect(null,mapDispatchToProps) (Auth)
+} 
+export default connect(mapStateToProps,mapDispatchToProps) (Auth)
